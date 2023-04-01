@@ -1,24 +1,28 @@
 package juc.thread;
 
+import org.junit.Test;
 import java.util.Random;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.*;
 
-public class NewThread {
-
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+public class NewThreadTest {
+    @Test
+    public void test1() {
         Thread t1 = new One(){{setName("one");}};
         Thread t2 = new One(){{setName("two");}};
 
         t1.start();
         t2.start();
+    }
+    @Test
+    public void test2() {
         Two two = new Two();
         Thread t3 = new Thread(two, "three"), t4 = new Thread(two, "four");
         t3.start();
         t4.start();
+    }
 
-
+    @Test
+    public void test3() throws InterruptedException, ExecutionException {
         Callable<Integer> three = new Three();
         FutureTask<Integer> futureTask1 = new FutureTask<>(three);
         FutureTask<Integer> futureTask2 = new FutureTask<>(three);
@@ -29,6 +33,26 @@ public class NewThread {
         Integer integer1 = futureTask1.get();
         Integer integer2 = futureTask2.get();
         System.out.println(integer1 + " " + integer2);
+    }
+
+    @Test
+    public void test4() throws InterruptedException {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.execute(() -> {
+            Random random = new Random(System.currentTimeMillis());
+            int i = random.nextInt(10);
+            for (int j = 0; j < i; j++) {
+                System.out.println(Thread.currentThread().getName() + ": " + "hello-world");
+            }
+        });
+        Thread.sleep(5000);
+        executorService.execute(() -> {
+            Random random = new Random(System.currentTimeMillis());
+            int i = random.nextInt(10);
+            for (int j = 0; j < i; j++) {
+                System.out.println(Thread.currentThread().getName() + ": " + "hello-world");
+            }
+        });
     }
 
 }
