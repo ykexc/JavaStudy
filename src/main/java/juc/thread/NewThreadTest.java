@@ -36,22 +36,23 @@ public class NewThreadTest {
     }
 
     @Test
-    public void test4() throws InterruptedException {
+    public void test4() {
         ExecutorService executorService = Executors.newCachedThreadPool();
         executorService.execute(() -> {
-            Random random = new Random(System.currentTimeMillis());
+            Random random = new Random(89);
             int i = random.nextInt(10);
             for (int j = 0; j < i; j++) {
                 System.out.println(Thread.currentThread().getName() + ": " + "hello-world");
             }
+            System.out.println(i);
         });
-        Thread.sleep(5000);
         executorService.execute(() -> {
-            Random random = new Random(System.currentTimeMillis());
+            Random random = new Random(14);
             int i = random.nextInt(10);
             for (int j = 0; j < i; j++) {
                 System.out.println(Thread.currentThread().getName() + ": " + "hello-world");
             }
+            System.out.println(i);
         });
     }
 

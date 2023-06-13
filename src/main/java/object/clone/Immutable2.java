@@ -1,4 +1,4 @@
-package object;
+package object.clone;
 
 /**
  * String就是一个不可变类

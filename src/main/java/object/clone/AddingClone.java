@@ -1,4 +1,4 @@
-package object;
+package object.clone;
 
 
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ class Int3 extends Int2 {
 
 
 
-//深拷贝ArrayList
+//深拷贝ArrayList,一句话总结:深拷贝的话必须要让ArrayList的泛型类也必须拥有克隆能力
 public class AddingClone {
 
 
@@ -57,7 +57,7 @@ public class AddingClone {
         Int2 x2 = x.clone();
         x2.increment();
         System.out.println("x = " + x + " " + "x2 = "  + x2);
-        //继承出来的任何事务也是可以克隆的
+        //继承出来的任何事物也是可以克隆的
         Int3 x3 = new Int3(7, 8);
         Int3 x4 = (Int3) x3.clone();
         System.out.println("x4 = " + x4);
